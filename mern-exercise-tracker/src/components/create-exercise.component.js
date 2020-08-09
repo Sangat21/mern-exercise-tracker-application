@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import DatePicker from 'react-datepicker';
-//import "react-datepicker/dist/react-datepicker.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 const CreateExercises = (props) => {
 
@@ -31,7 +31,7 @@ const CreateExercises = (props) => {
         setDate(date);
     }
 
-    const handleSubmit = (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
 
         const exercise = {
@@ -47,9 +47,44 @@ const CreateExercises = (props) => {
     }
 
     return (
-        <div>
-            You are on the Create Exercises Component!!
-        </div>
+        <form onSubmit={onSubmit}> <br/>
+            <label>Select User:</label>
+            <select
+                required
+                className="form-control"
+                value={username}
+                onChange={e => onChangeUsername(e)}>
+                {
+
+                    users.map((user) => {
+                    return (<option
+                        key={user}
+                        value={user}>{user}
+                        </option>);
+                    })
+                }
+            </select> <br/>
+            <label>Description:</label>
+            <input
+                required
+                className="form-control"
+                value={description}
+                onChange={e => onChangeDescription(e)} /> <br/>
+            <label>Duration (in minutes): </label>
+            <input
+                required
+                className="form-control"
+                value={duration}
+                onChange={e => onChangeDuration(e)} /> <br/>
+            <label>Date: </label> <br/>
+            <DatePicker
+                selected={date}
+                onChange={date => onChangeDate(date)}
+                className="form-control"
+            />
+            <br/> <br/>
+            <input type="submit" value="Create Exercise Log" className="btn btn-primary" />
+        </form>
     )
 }
 
